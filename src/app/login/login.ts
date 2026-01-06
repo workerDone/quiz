@@ -7,6 +7,9 @@ import { MatError, MatFormField, MatInput, MatLabel } from '@angular/material/in
 import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { NgTemplateOutlet } from '@angular/common';
 import { SecurityApi } from '../common/security/security-api';
+import { Router } from '@angular/router';
+import { PathResolver } from '../common/path-resolver';
+import { SecurityStore } from '../common/security/security-store';
 
 @Component({
   selector: 'app-login',
@@ -31,6 +34,9 @@ export class Login {
     userName: new FormControl('', Validators.required),
   })
   private securityApi = inject(SecurityApi);
+  private router = inject(Router);
+  private pathResolver = inject(PathResolver);
+  private securityStore = inject(SecurityStore);
 
   submit(): void {
     if (this.loginForm.invalid) {
@@ -40,6 +46,11 @@ export class Login {
     this.isLoading.set(true);
     this.securityApi.login(this.loginForm.controls.userName.value!).pipe(first()).subscribe(() => {
       this.isLoading.set(false);
+      if (this.securityStore.redirectRoute() !== null) {
+        this.router.navigate([this.securityStore.redirectRoute()]);
+      } else {
+        this.router.navigate([this.pathResolver.getRealmLandingPath(this.securityStore.realm()!)]);
+      }
     })
   }
 }

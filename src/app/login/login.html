@@ -1,11 +1,11 @@
 <mat-card class="login-card">
-  <mat-card-title>Login</mat-card-title>
+  <mat-card-title class="title">Login</mat-card-title>
   <form [formGroup]="loginForm" (ngSubmit)="submit()">
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>User name</mat-label>
       <input matInput formControlName="userName"/>
       @if (loginForm.controls.userName.hasError('required')) {
-        <mat-error>User name is required</mat-error>
+        <mat-error class="error">User name is required</mat-error>
       }
     </mat-form-field>
     <button

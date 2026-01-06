@@ -34,12 +34,12 @@ export class SecurityApi {
     this.securityStore.logout();
   }
 
-  login(userName: string): Observable<void> {
+  login(username: string): Observable<void> {
     return of(void 0)
       .pipe(
         delay(1000),
         tap(() => {
-          this.localStorage.setItem(LocalStorageConstants.userName, userName);
+          this.localStorage.setItem(LocalStorageConstants.userName, username);
           this.authorize();
         }));
   }
