@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { delay, Observable, of, tap } from 'rxjs';
+import { delay, map, Observable, of, tap } from 'rxjs';
 import { SecurityStore } from './security-store';
 import { LocalStorage } from '../local-storage';
 import { LocalStorageConstants } from '../local-storage-constants';
@@ -13,19 +13,20 @@ export class SecurityApi {
   private securityStore = inject(SecurityStore);
   private localStorage = inject(LocalStorage);
 
-  isAuthorized(): boolean | null {
-    return this.securityStore.authorized();
-  }
-
-  checkAuthorization(): void {
-    of(this.localStorage.getItem(LocalStorageConstants.userName)).pipe(delay(3000)).subscribe(userName => {
-      if (!!userName) {
-        this.authorize();
-      } else {
-        this.securityStore.setAuthorized(false);
-        this.securityStore.setRealm(Realm.Login);
-      }
-    });
+  checkAuthorization(): Observable<void> {
+    return of(this.localStorage.getItem(LocalStorageConstants.userName))
+      .pipe(
+        delay(1000),
+        tap(userName => {
+          if (!!userName) {
+            this.authorize();
+          } else {
+            this.securityStore.setAuthorized(false);
+            this.securityStore.setRealm(Realm.Login);
+          }
+        }),
+        map(() => void 0)
+      );
   }
 
   logout(): void {

@@ -13,7 +13,7 @@ export const SecurityStore = signalStore(
   { providedIn: 'root' },
   withState(initialState),
   withMethods((store) => ({
-    setAuthorized(authorized: boolean): void {
+    setAuthorized(authorized: boolean| null): void {
       patchState(store, { authorized });
     },
     setRealm(realm: Realm | null): void {

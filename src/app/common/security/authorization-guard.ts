@@ -10,7 +10,7 @@ export const authorizationGuard: CanActivateFn = (_, state): Observable<boolean 
   const securityApi = inject(SecurityApi);
   const securityStore = inject(SecurityStore);
   const router = inject(Router);
-  securityApi.checkAuthorization();
+  securityApi.checkAuthorization().subscribe();
   return combineLatest([
     toObservable(securityStore.authorized),
     toObservable(securityStore.realm)
