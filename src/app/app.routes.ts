@@ -8,8 +8,7 @@ export const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    canActivate: [authorizationGuard],
-    component: Main,
+    redirectTo: 'quiz',
   },
   {
     path: 'login',

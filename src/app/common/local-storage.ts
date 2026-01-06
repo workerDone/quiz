@@ -11,17 +11,17 @@ export class LocalStorage {
     this.isBrowser = isPlatformBrowser(platformId);
   }
 
-  setItem(key: string, value: any): void {
+  setItem(key: string, value: string): void {
     if (this.isBrowser) {
       try {
-        localStorage.setItem(key, JSON.stringify(value));
+        localStorage.setItem(key, value);
       } catch (e) {
         console.error('Error saving to localStorage', e);
       }
     }
   }
 
-  getItem(key: string): any | null {
+  getItem(key: string): string | null {
     if (this.isBrowser) {
       try {
         const storedValue = localStorage.getItem(key);

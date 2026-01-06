@@ -1,27 +1,27 @@
 import { CanActivateFn, Router, UrlTree } from '@angular/router';
 import { inject } from '@angular/core';
-import { SecurityApi } from './security-api';
-import { SecurityStore } from './security-store';
-import { filter, first, map, Observable, tap } from 'rxjs';
 import { toObservable } from '@angular/core/rxjs-interop';
+import { combineLatest, filter, first, map, Observable } from 'rxjs';
+import { Realm } from './realm';
+import { SecurityStore } from './security-store';
+import { SecurityApi } from './security-api';
 
-export const authorizationGuard: CanActivateFn = (route, state): Observable<boolean | UrlTree> | UrlTree => {
+export const authorizationGuard: CanActivateFn = (_, state): Observable<boolean | UrlTree> | UrlTree => {
   const securityApi = inject(SecurityApi);
   const securityStore = inject(SecurityStore);
   const router = inject(Router);
   securityApi.checkAuthorization();
-  return toObservable(securityStore.authorized).pipe(
-    filter(authorized => authorized != null),
-    tap(authorized => {
-      if (!authorized && state.url !== '/') {
-        securityStore.setRedirectRoute(state.url);
+  return combineLatest([
+    toObservable(securityStore.authorized),
+    toObservable(securityStore.realm)
+  ]).pipe(
+    filter(([authorized, realm]) => authorized != null && realm !== null),
+    map((authorized, realm) => {
+      if (securityStore.realm() === Realm.Main && authorized) {
+        return true;
       }
-    }),
-    map(authorized => {
-      if (!authorized) {
-        return router.createUrlTree(['/login']);
-      }
-      return authorized;
+      securityStore.setRedirectRoute(state.url);
+      return router.createUrlTree(['/login']);
     }),
     first()
   );
