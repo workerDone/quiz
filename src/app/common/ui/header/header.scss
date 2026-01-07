@@ -1,0 +1,14 @@
+@use "../../../../variables" as *;
+
+.content {
+  min-width: 100vw;
+  background-color: $lightGray600;
+
+  .container {
+    max-width: $maxWorkspaceWidth;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+  }
+}

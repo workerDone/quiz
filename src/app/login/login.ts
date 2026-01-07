@@ -10,6 +10,7 @@ import { SecurityApi } from '../common/security/security-api';
 import { Router } from '@angular/router';
 import { PathResolver } from '../common/path-resolver';
 import { SecurityStore } from '../common/security/security-store';
+import { Header } from '../common/ui/header/header';
 
 @Component({
   selector: 'app-login',
@@ -23,7 +24,8 @@ import { SecurityStore } from '../common/security/security-store';
     MatInput,
     MatButton,
     MatProgressSpinner,
-    NgTemplateOutlet
+    NgTemplateOutlet,
+    Header
   ],
   templateUrl: './login.html',
   styleUrl: './login.scss',
