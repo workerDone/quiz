@@ -1,16 +1,9 @@
 import { TestBed } from '@angular/core/testing';
-
+import { firstValueFrom } from 'rxjs';
 import { SecurityApi } from './security-api';
 import { SecurityStore } from './security-store';
-import { signal } from '@angular/core';
 import { Realm } from './realm';
 import { LocalStorage } from '../local-storage';
-import { firstValueFrom } from 'rxjs';
-import { provideRouter } from '@angular/router';
-import { Main } from '../../main/main';
-import { authorizationGuard } from './authorization-guard';
-import { Login } from '../../login/login';
-import { RouterTestingHarness } from '@angular/router/testing';
 import { LocalStorageConstants } from '../local-storage-constants';
 
 describe('SecurityApi', () => {

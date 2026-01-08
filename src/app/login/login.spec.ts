@@ -2,13 +2,12 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { expect } from 'vitest';
 import { of } from 'rxjs';
-import { Component, signal } from '@angular/core';
+import { signal } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { Login } from './login';
 import { SecurityStore } from '../common/security/security-store';
 import { Realm } from '../common/security/realm';
 import { SecurityApi } from '../common/security/security-api';
-import { Main } from '../main/main';
 import { Wrapper } from '../common/ui/wrapper/wrapper';
 import { MockWrapper } from '../main/main.spec';
 

@@ -4,6 +4,8 @@ import { MatIconButton } from '@angular/material/button';
 import { Router, RouterOutlet } from '@angular/router';
 import { Wrapper } from '../common/ui/wrapper/wrapper';
 import { SecurityApi } from '../common/security/security-api';
+import { PathResolver } from '../common/path-resolver';
+import { Realm } from '../common/security/realm';
 
 @Component({
   selector: 'app-main',
@@ -20,10 +22,11 @@ export class Main {
 
   securityApi = inject(SecurityApi);
   router = inject(Router);
+  pathResolver = inject(PathResolver);
   username = signal(this.securityApi.getUsername());
 
   logout() {
     this.securityApi.logout();
-    this.router.navigate(['/login']);
+    this.router.navigate([`/${this.pathResolver.getRealmLandingPath(Realm.Login)}`]);
   }
 }
