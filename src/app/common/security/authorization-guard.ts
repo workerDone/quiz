@@ -16,8 +16,8 @@ export const authorizationGuard: CanActivateFn = (_, state): Observable<boolean 
     toObservable(securityStore.realm)
   ]).pipe(
     filter(([authorized, realm]) => authorized != null && realm !== null),
-    map((authorized, realm) => {
-      if (securityStore.realm() === Realm.Main && authorized) {
+    map(([authorized, realm]) => {
+      if (realm === Realm.Main && authorized) {
         return true;
       }
       securityStore.setRedirectRoute(state.url);

@@ -3,7 +3,7 @@ import { By } from '@angular/platform-browser';
 import { expect } from 'vitest';
 import { of } from 'rxjs';
 import { signal } from '@angular/core';
-import { NavigationExtras, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Login } from './login';
 import { SecurityStore } from '../common/security/security-store';
 import { Realm } from '../common/security/realm';
@@ -29,10 +29,10 @@ describe('Login', () => {
     };
 
     securityApiMock = {
-      login: vi.fn((username: string) => of(void 0),)
+      login: vi.fn(() => of(void 0),)
     };
     routerMock = {
-      navigate: vi.fn((commands: readonly any[], extras?: NavigationExtras): Promise<boolean> => {
+      navigate: vi.fn((): Promise<boolean> => {
         return Promise.resolve(true);
       })
     }
