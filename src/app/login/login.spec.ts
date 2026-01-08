@@ -8,14 +8,9 @@ import { Login } from './login';
 import { SecurityStore } from '../common/security/security-store';
 import { Realm } from '../common/security/realm';
 import { SecurityApi } from '../common/security/security-api';
-import { Header } from '../common/ui/header/header';
-
-@Component({
-  selector: 'app-header',
-  template: '',
-})
-export class MockHeader {
-}
+import { Main } from '../main/main';
+import { Wrapper } from '../common/ui/wrapper/wrapper';
+import { MockWrapper } from '../main/main.spec';
 
 describe('Login', () => {
   let component: Login;
@@ -25,6 +20,10 @@ describe('Login', () => {
   let securityApiMock: Partial<SecurityApi>;
 
   beforeEach(async () => {
+    TestBed.overrideComponent(Login, {
+      remove: { imports: [Wrapper] },
+      add: { imports: [MockWrapper] },
+    })
     securityStoreMock = {
       realm: signal(Realm.Main),
       redirectRoute: signal('/quiz'),
@@ -38,11 +37,6 @@ describe('Login', () => {
         return Promise.resolve(true);
       })
     }
-
-    TestBed.overrideComponent(Login, {
-      remove: {imports: [Header]},
-      add: {imports: [MockHeader]},
-    })
 
     await TestBed.configureTestingModule({
       providers: [

@@ -1,0 +1,33 @@
+@use '../../../../variables' as *;
+
+.footer {
+  height: 100%;
+  background: linear-gradient(180deg, rgba(3, 5, 4, 0) 0%, $purple100 27.6%, $lightGray600 100%);
+
+  .container {
+    width: $maxWorkspaceWidth;
+    height: 100%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .details {
+      .title {
+        font-size: 18px;
+        font-weight: 500;
+        margin-bottom: 10px;
+        color: $darkGray700;
+      }
+
+      .text {
+        color: $darkGray600;
+      }
+    }
+
+    .link {
+      display: flex;
+      gap: 20px;
+    }
+  }
+}

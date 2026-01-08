@@ -44,6 +44,10 @@ export class SecurityApi {
         }));
   }
 
+  getUsername(): string {
+    return this.localStorage.getItem(LocalStorageConstants.userName)!;
+  }
+
   private authorize() {
     this.securityStore.setAuthorized(true);
     this.securityStore.setRealm(Realm.Main);

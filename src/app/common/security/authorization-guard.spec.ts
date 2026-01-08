@@ -7,6 +7,7 @@ import { Main } from '../../main/main';
 import { SecurityStore } from './security-store';
 import { signal } from '@angular/core';
 import { Realm } from './realm';
+import { expect } from 'vitest';
 
 describe('authorizationGuard', () => {
   const executeGuard: CanActivateFn = (...guardParameters) =>
@@ -40,7 +41,7 @@ describe('authorizationGuard', () => {
   it('allows navigation when user is authorized', async () => {
     await setup(true);
     await harness.navigateByUrl('quiz', Main);
-    expect(harness.routeNativeElement?.textContent).toContain('Quiz')
+    expect(harness.routeNativeElement).toBeTruthy()
   });
 
   it('redirects to login when user is not authorized', async () => {

@@ -1,2 +1,11 @@
-<div>Quiz</div>
-<router-outlet />
+<app-wrapper>
+  <ng-content ngProjectAs="app-name">
+    <div class="container">
+      <div class="username">{{username()}}</div>
+      <button matIconButton (click)="logout()">
+        <mat-icon>logout</mat-icon>
+      </button>
+    </div>
+  </ng-content>
+  <router-outlet />
+</app-wrapper>

@@ -1,0 +1,18 @@
+@use '../../../../variables' as *;
+
+.content {
+  min-height: 100vh;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+
+  .container {
+    padding-top: 50px;
+    margin: 0 auto;
+    width: $maxWorkspaceWidth;
+  }
+
+  .footer {
+    height: 150px;
+  }
+}
