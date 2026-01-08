@@ -5,11 +5,13 @@ import { combineLatest, filter, first, map, Observable } from 'rxjs';
 import { Realm } from './realm';
 import { SecurityStore } from './security-store';
 import { SecurityApi } from './security-api';
+import { PathResolver } from '../path-resolver';
 
 export const authorizationGuard: CanActivateFn = (_, state): Observable<boolean | UrlTree> | UrlTree => {
   const securityApi = inject(SecurityApi);
   const securityStore = inject(SecurityStore);
   const router = inject(Router);
+  const pathResolver = inject(PathResolver);
   securityApi.checkAuthorization().subscribe();
   return combineLatest([
     toObservable(securityStore.authorized),
@@ -21,7 +23,7 @@ export const authorizationGuard: CanActivateFn = (_, state): Observable<boolean 
         return true;
       }
       securityStore.setRedirectRoute(state.url);
-      return router.createUrlTree(['/login']);
+      return router.createUrlTree([`/${pathResolver.getRealmLandingPath(Realm.Login)}`]);
     }),
     first()
   );

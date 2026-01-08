@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component } from '@angular/core';
 import { Wrapper } from './wrapper';
-import { Login } from '../../../login/login';
 import { Header } from '../header/header';
 import { Footer } from '../footer/footer';
 
