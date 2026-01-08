@@ -2,13 +2,31 @@
 
 .content {
   min-width: 100vw;
-  background-color: $lightGray600;
+  background-color: $purple100;
 
   .container {
     max-width: $maxWorkspaceWidth;
     height: 50px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     margin: 0 auto;
+
+    .logo {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+
+      .text {
+        color: $purple800;
+        font-size: 16px;
+        margin-left: 4px;
+      }
+    }
+
+    .default-text {
+      color: $purple800;
+      font-size: 14px;
+    }
   }
 }

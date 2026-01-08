@@ -1,7 +1,14 @@
 <div class="content">
   <div class="container">
-      Quiz
-    <ng-content></ng-content>
+    <a routerLink="/" class="logo">
+      <img class="image" ngSrc="/assets/images/free-quiz-icon.webp" height="30" width="30">
+      <div class="text">Quiz time</div>
+    </a>
+    <ng-content>
+      <div class="default-text">
+        Just do it.
+      </div>
+    </ng-content>
   </div>
 </div>
 

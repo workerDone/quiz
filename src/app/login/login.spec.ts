@@ -1,14 +1,21 @@
-import { ComponentFixture, TestBed, tick } from '@angular/core/testing';
-
-import { Login } from './login';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { expect } from 'vitest';
+import { of } from 'rxjs';
+import { Component, signal } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
+import { Login } from './login';
 import { SecurityStore } from '../common/security/security-store';
-import { signal } from '@angular/core';
 import { Realm } from '../common/security/realm';
 import { SecurityApi } from '../common/security/security-api';
-import { delay, Observable, of } from 'rxjs';
+import { Header } from '../common/ui/header/header';
+
+@Component({
+  selector: 'app-header',
+  template: '',
+})
+export class MockHeader {
+}
 
 describe('Login', () => {
   let component: Login;
@@ -31,6 +38,11 @@ describe('Login', () => {
         return Promise.resolve(true);
       })
     }
+
+    TestBed.overrideComponent(Login, {
+      remove: {imports: [Header]},
+      add: {imports: [MockHeader]},
+    })
 
     await TestBed.configureTestingModule({
       providers: [
@@ -111,5 +123,4 @@ describe('Login', () => {
     expect(securityApiMock.login).toHaveBeenCalledWith(component.loginForm.controls.userName.value!);
     expect(routerMock.navigate).toHaveBeenCalledWith(['/quiz']);
   });
-
 });
