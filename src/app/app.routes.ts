@@ -22,6 +22,16 @@ export const routes: Routes = [
       {
         path: 'quiz',
         component: Quiz,
+        children: [
+          {
+            path: '',
+            loadComponent: () => import('./quiz/quiz-list/quiz-list').then(component => component.QuizList),
+          },
+          {
+            path: ':id',
+            loadComponent: () => import('./quiz/quiz-view/quiz-view').then(component => component.QuizView),
+          }
+        ]
       }
     ]
   }
