@@ -1,7 +1,7 @@
-import { QuizViewModel } from '../quiz-view/quiz-view.model';
+import { QuizQuestion } from '../quiz-view/quiz-question';
 
 export interface DataQuizItemModel {
   name: string;
   id: number;
-  value: QuizViewModel[];
+  value: QuizQuestion[];
 }

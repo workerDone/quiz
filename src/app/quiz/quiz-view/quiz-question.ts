@@ -1,12 +1,12 @@
-import { QuizLevel } from '../quiz-level';
+import { QuizQuestionLevel } from '../quiz-question-level';
 
-export interface QuizViewModel {
+export interface QuizQuestion {
   id: number;
   question: string;
   options: string[];
   correctAnswerIndexes: number[];
   allowMultipleAnswers: boolean;
   explanation: string;
-  level: QuizLevel;
+  level: QuizQuestionLevel;
   topic: string;
 }

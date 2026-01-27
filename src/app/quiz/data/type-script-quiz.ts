@@ -1,7 +1,7 @@
-import { QuizLevel } from '../quiz-level';
-import { QuizViewModel } from '../quiz-view/quiz-view.model';
+import { QuizQuestionLevel } from '../quiz-question-level';
+import { QuizQuestion } from '../quiz-view/quiz-question';
 
-export const typeScriptQuizData: QuizViewModel[] = [
+export const typeScriptQuizData: QuizQuestion[] = [
   {
     id: 1,
     question: 'Что такое TypeScript?',
@@ -14,7 +14,7 @@ export const typeScriptQuizData: QuizViewModel[] = [
     correctAnswerIndexes: [3],
     allowMultipleAnswers: false,
     explanation: 'TypeScript — это надмножество JavaScript, которое добавляет статическую типизацию и компилируется в JavaScript.',
-    level: QuizLevel.Junior,
+    level: QuizQuestionLevel.Junior,
     topic: 'TypeScript Основы'
   },
   {
@@ -29,7 +29,7 @@ export const typeScriptQuizData: QuizViewModel[] = [
     correctAnswerIndexes: [0, 1, 2, 3],
     allowMultipleAnswers: true,
     explanation: 'TypeScript поддерживает все примитивные типы JavaScript плюс дополнительные типы.',
-    level: QuizLevel.Junior,
+    level: QuizQuestionLevel.Junior,
     topic: 'Типы данных'
   },
   {
@@ -44,7 +44,7 @@ export const typeScriptQuizData: QuizViewModel[] = [
     correctAnswerIndexes: [0, 1, 2, 3],
     allowMultipleAnswers: true,
     explanation: 'Interface определяет контракт для структуры объекта и поддерживает слияние.',
-    level: QuizLevel.Junior,
+    level: QuizQuestionLevel.Junior,
     topic: 'Interfaces'
   },
   {
@@ -59,7 +59,7 @@ export const typeScriptQuizData: QuizViewModel[] = [
     correctAnswerIndexes: [3],
     allowMultipleAnswers: false,
     explanation: 'interface подходит для объектов и поддерживает слияние, type более универсален.',
-    level: QuizLevel.Middle,
+    level: QuizQuestionLevel.Middle,
     topic: 'Type System'
   },
   {
@@ -74,7 +74,7 @@ export const typeScriptQuizData: QuizViewModel[] = [
     correctAnswerIndexes: [0, 1, 2, 3],
     allowMultipleAnswers: true,
     explanation: 'Union типы позволяют переменной быть одним из нескольких типов.',
-    level: QuizLevel.Middle,
+    level: QuizQuestionLevel.Middle,
     topic: 'Advanced Types'
   },
   {
@@ -89,7 +89,7 @@ export const typeScriptQuizData: QuizViewModel[] = [
     correctAnswerIndexes: [0, 1, 2, 3],
     allowMultipleAnswers: true,
     explanation: 'Intersection типы объединяют несколько типов в один, включая все их свойства.',
-    level: QuizLevel.Middle,
+    level: QuizQuestionLevel.Middle,
     topic: 'Advanced Types'
   },
   {
@@ -104,7 +104,7 @@ export const typeScriptQuizData: QuizViewModel[] = [
     correctAnswerIndexes: [0, 1, 2, 3],
     allowMultipleAnswers: true,
     explanation: 'Generic типы позволяют создавать компоненты, работающие с разными типами данных.',
-    level: QuizLevel.Middle,
+    level: QuizQuestionLevel.Middle,
     topic: 'Generics'
   },
   {
@@ -119,7 +119,7 @@ export const typeScriptQuizData: QuizViewModel[] = [
     correctAnswerIndexes: [0, 1, 2, 3],
     allowMultipleAnswers: true,
     explanation: 'Enum позволяет определить набор именованных констант, числовых или строковых.',
-    level: QuizLevel.Junior,
+    level: QuizQuestionLevel.Junior,
     topic: 'Enums'
   },
   {
@@ -134,7 +134,7 @@ export const typeScriptQuizData: QuizViewModel[] = [
     correctAnswerIndexes: [0, 1, 2, 3],
     allowMultipleAnswers: true,
     explanation: 'Mapped типы создают новые типы путём трансформации свойств существующих типов.',
-    level: QuizLevel.Senior,
+    level: QuizQuestionLevel.Senior,
     topic: 'Advanced Types'
   },
   {
@@ -149,7 +149,7 @@ export const typeScriptQuizData: QuizViewModel[] = [
     correctAnswerIndexes: [0, 1, 2, 3],
     allowMultipleAnswers: true,
     explanation: 'Conditional типы выбирают один из двух типов на основе условия.',
-    level: QuizLevel.Senior,
+    level: QuizQuestionLevel.Senior,
     topic: 'Advanced Types'
   },
   {
@@ -164,7 +164,7 @@ export const typeScriptQuizData: QuizViewModel[] = [
     correctAnswerIndexes: [0, 1, 2],
     allowMultipleAnswers: true,
     explanation: 'readonly предотвращает модификацию свойства после его инициализации.',
-    level: QuizLevel.Middle,
+    level: QuizQuestionLevel.Middle,
     topic: 'Modifiers'
   },
   {
@@ -179,7 +179,7 @@ export const typeScriptQuizData: QuizViewModel[] = [
     correctAnswerIndexes: [0, 1, 2, 3],
     allowMultipleAnswers: true,
     explanation: 'Utility типы — встроенные инструменты для часто используемых трансформаций типов.',
-    level: QuizLevel.Middle,
+    level: QuizQuestionLevel.Middle,
     topic: 'Utility Types'
   },
   {
@@ -194,7 +194,7 @@ export const typeScriptQuizData: QuizViewModel[] = [
     correctAnswerIndexes: [0, 1, 2, 3],
     allowMultipleAnswers: true,
     explanation: 'Type guard сужает тип переменной внутри условного блока.',
-    level: QuizLevel.Middle,
+    level: QuizQuestionLevel.Middle,
     topic: 'Type Narrowing'
   },
   {
@@ -209,7 +209,7 @@ export const typeScriptQuizData: QuizViewModel[] = [
     correctAnswerIndexes: [0, 1, 2, 3],
     allowMultipleAnswers: true,
     explanation: 'Декораторы — это функции для аннотирования и модификации классов, методов и свойств.',
-    level: QuizLevel.Senior,
+    level: QuizQuestionLevel.Senior,
     topic: 'Decorators'
   },
   {
@@ -224,7 +224,7 @@ export const typeScriptQuizData: QuizViewModel[] = [
     correctAnswerIndexes: [0, 1, 2, 3],
     allowMultipleAnswers: true,
     explanation: 'Namespace — способ организации кода, но в современном TypeScript предпочитают модули.',
-    level: QuizLevel.Middle,
+    level: QuizQuestionLevel.Middle,
     topic: 'Modules'
   },
   {
@@ -239,7 +239,7 @@ export const typeScriptQuizData: QuizViewModel[] = [
     correctAnswerIndexes: [0, 1, 2],
     allowMultipleAnswers: true,
     explanation: 'Declaration merging позволяет определить interface/namespace несколько раз.',
-    level: QuizLevel.Senior,
+    level: QuizQuestionLevel.Senior,
     topic: 'Advanced Concepts'
   },
   {
@@ -254,7 +254,7 @@ export const typeScriptQuizData: QuizViewModel[] = [
     correctAnswerIndexes: [0, 1, 2, 3],
     allowMultipleAnswers: true,
     explanation: 'Strict mode включает набор строгих проверок для лучшего качества кода.',
-    level: QuizLevel.Junior,
+    level: QuizQuestionLevel.Junior,
     topic: 'Configuration'
   },
   {
@@ -269,7 +269,7 @@ export const typeScriptQuizData: QuizViewModel[] = [
     correctAnswerIndexes: [0, 1, 2, 3],
     allowMultipleAnswers: true,
     explanation: 'unknown — безопасная альтернатива any, требующая проверки типа перед использованием.',
-    level: QuizLevel.Middle,
+    level: QuizQuestionLevel.Middle,
     topic: 'Types'
   },
   {
@@ -284,7 +284,7 @@ export const typeScriptQuizData: QuizViewModel[] = [
     correctAnswerIndexes: [0, 1, 2, 3],
     allowMultipleAnswers: true,
     explanation: 'never — тип для функций, которые выбрасывают исключение или никогда не возвращаются.',
-    level: QuizLevel.Senior,
+    level: QuizQuestionLevel.Senior,
     topic: 'Types'
   },
   {
@@ -299,7 +299,7 @@ export const typeScriptQuizData: QuizViewModel[] = [
     correctAnswerIndexes: [0, 1, 2],
     allowMultipleAnswers: true,
     explanation: 'Для строгой типизации используют флаг "strict" или отдельные строгие флаги в tsconfig.json.',
-    level: QuizLevel.Junior,
+    level: QuizQuestionLevel.Junior,
     topic: 'Configuration'
   }
 ];

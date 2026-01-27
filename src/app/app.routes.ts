@@ -3,6 +3,7 @@ import { authorizationGuard } from './common/security/authorization-guard';
 import { Main } from './main/main';
 import { Quiz } from './quiz/quiz';
 import { Login } from './login/login';
+import { quizViewResolver } from './quiz/quiz-view/quiz-view.resolver';
 
 export const routes: Routes = [
   {
@@ -29,6 +30,9 @@ export const routes: Routes = [
           },
           {
             path: ':id',
+            resolve: {
+              quiz: quizViewResolver
+            },
             loadComponent: () => import('./quiz/quiz-view/quiz-view').then(component => component.QuizView),
           }
         ]

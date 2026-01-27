@@ -1,7 +1,7 @@
-import { QuizLevel } from '../quiz-level';
-import { QuizViewModel } from '../quiz-view/quiz-view.model';
+import { QuizQuestionLevel } from '../quiz-question-level';
+import { QuizQuestion } from '../quiz-view/quiz-question';
 
-export const angularQuizData: QuizViewModel[] = [
+export const angularQuizData: QuizQuestion[] = [
   {
     id: 1,
     question: 'Что такое Angular?',
@@ -14,7 +14,7 @@ export const angularQuizData: QuizViewModel[] = [
     correctAnswerIndexes: [1],
     allowMultipleAnswers: false,
     explanation: 'Angular — фреймворк на TypeScript от Google для создания динамических веб-приложений.',
-    level: QuizLevel.Junior,
+    level: QuizQuestionLevel.Junior,
     topic: 'Angular Основы'
   },
   {
@@ -24,7 +24,7 @@ export const angularQuizData: QuizViewModel[] = [
     correctAnswerIndexes: [0, 1, 2],
     allowMultipleAnswers: true,
     explanation: 'Компоненты, сервисы и директивы — основные блоки Angular.',
-    level: QuizLevel.Junior,
+    level: QuizQuestionLevel.Junior,
     topic: 'Angular Архитектура'
   },
   {
@@ -34,7 +34,7 @@ export const angularQuizData: QuizViewModel[] = [
     correctAnswerIndexes: [2],
     allowMultipleAnswers: false,
     explanation: 'subscribe() возвращает объект Subscription для управления подпиской.',
-    level: QuizLevel.Middle,
+    level: QuizQuestionLevel.Middle,
     topic: 'RxJS'
   },
   {
@@ -44,7 +44,7 @@ export const angularQuizData: QuizViewModel[] = [
     correctAnswerIndexes: [0, 1, 2],
     allowMultipleAnswers: true,
     explanation: 'map, filter и switchMap — операторы для трансформации Observable.',
-    level: QuizLevel.Middle,
+    level: QuizQuestionLevel.Middle,
     topic: 'RxJS Операторы'
   },
   {
@@ -59,7 +59,7 @@ export const angularQuizData: QuizViewModel[] = [
     correctAnswerIndexes: [1],
     allowMultipleAnswers: false,
     explanation: '@Injectable() отмечает класс как сервис, доступный для внедрения зависимостей.',
-    level: QuizLevel.Middle,
+    level: QuizQuestionLevel.Middle,
     topic: 'Сервисы'
   },
   {
@@ -74,7 +74,7 @@ export const angularQuizData: QuizViewModel[] = [
     correctAnswerIndexes: [0, 1, 2],
     allowMultipleAnswers: true,
     explanation: 'ngOnInit, ngOnDestroy, ngAfterViewInit — это хуки жизненного цикла компонента.',
-    level: QuizLevel.Middle,
+    level: QuizQuestionLevel.Middle,
     topic: 'Жизненный цикл'
   },
   {
@@ -89,7 +89,7 @@ export const angularQuizData: QuizViewModel[] = [
     correctAnswerIndexes: [0, 1, 2, 3],
     allowMultipleAnswers: true,
     explanation: 'В Angular 14+ можно использовать все три метода для внедрения зависимостей.',
-    level: QuizLevel.Middle,
+    level: QuizQuestionLevel.Middle,
     topic: 'Dependency Injection'
   },
   {
@@ -104,7 +104,7 @@ export const angularQuizData: QuizViewModel[] = [
     correctAnswerIndexes: [0, 1],
     allowMultipleAnswers: true,
     explanation: 'Signals — современный способ управления состоянием и реактивностью в Angular 16+.',
-    level: QuizLevel.Senior,
+    level: QuizQuestionLevel.Senior,
     topic: 'Signals'
   },
   {
@@ -119,7 +119,7 @@ export const angularQuizData: QuizViewModel[] = [
     correctAnswerIndexes: [0, 1, 2, 3],
     allowMultipleAnswers: true,
     explanation: 'Существует несколько способов управления подписками и избежания утечек памяти.',
-    level: QuizLevel.Senior,
+    level: QuizQuestionLevel.Senior,
     topic: 'Memory Management'
   },
   {
@@ -134,7 +134,7 @@ export const angularQuizData: QuizViewModel[] = [
     correctAnswerIndexes: [0],
     allowMultipleAnswers: false,
     explanation: 'HttpClientModule используется для отправки HTTP запросов к серверу.',
-    level: QuizLevel.Junior,
+    level: QuizQuestionLevel.Junior,
     topic: 'HTTP'
   },
   {
@@ -149,7 +149,7 @@ export const angularQuizData: QuizViewModel[] = [
     correctAnswerIndexes: [2],
     allowMultipleAnswers: false,
     explanation: '[(ngModel)] синхронизирует данные между компонентом и шаблоном в обе стороны.',
-    level: QuizLevel.Junior,
+    level: QuizQuestionLevel.Junior,
     topic: 'Data Binding'
   },
   {
@@ -164,7 +164,7 @@ export const angularQuizData: QuizViewModel[] = [
     correctAnswerIndexes: [0, 1, 2, 3],
     allowMultipleAnswers: true,
     explanation: 'В Angular существуют структурные, атрибутные и компонентные директивы.',
-    level: QuizLevel.Middle,
+    level: QuizQuestionLevel.Middle,
     topic: 'Директивы'
   },
   {
@@ -179,7 +179,7 @@ export const angularQuizData: QuizViewModel[] = [
     correctAnswerIndexes: [0, 1, 2, 3],
     allowMultipleAnswers: true,
     explanation: 'RouterModule обеспечивает навигацию, управление URL и параметры маршрутов.',
-    level: QuizLevel.Middle,
+    level: QuizQuestionLevel.Middle,
     topic: 'Маршрутизация'
   },
   {
@@ -194,7 +194,7 @@ export const angularQuizData: QuizViewModel[] = [
     correctAnswerIndexes: [0, 1, 2, 3],
     allowMultipleAnswers: true,
     explanation: 'Guards контролируют доступ к маршрутам и проверяют условия навигации.',
-    level: QuizLevel.Senior,
+    level: QuizQuestionLevel.Senior,
     topic: 'Маршрутизация'
   },
   {
@@ -209,7 +209,7 @@ export const angularQuizData: QuizViewModel[] = [
     correctAnswerIndexes: [0, 1, 2, 3],
     allowMultipleAnswers: true,
     explanation: 'Angular поддерживает оба подхода к формам с встроенными и кастомными валидаторами.',
-    level: QuizLevel.Middle,
+    level: QuizQuestionLevel.Middle,
     topic: 'Формы'
   },
   {
@@ -224,7 +224,7 @@ export const angularQuizData: QuizViewModel[] = [
     correctAnswerIndexes: [3],
     allowMultipleAnswers: false,
     explanation: 'Выбор зависит от требований проекта. Все подходы имеют свои преимущества.',
-    level: QuizLevel.Senior,
+    level: QuizQuestionLevel.Senior,
     topic: 'State Management'
   },
   {
@@ -239,7 +239,7 @@ export const angularQuizData: QuizViewModel[] = [
     correctAnswerIndexes: [0, 1, 2, 3],
     allowMultipleAnswers: true,
     explanation: 'providedIn управляет регистрацией сервиса и влияет на оптимизацию бандла.',
-    level: QuizLevel.Senior,
+    level: QuizQuestionLevel.Senior,
     topic: 'Сервисы'
   },
   {
@@ -254,7 +254,7 @@ export const angularQuizData: QuizViewModel[] = [
     correctAnswerIndexes: [0, 1, 2, 3],
     allowMultipleAnswers: true,
     explanation: 'Тестирование Angular использует Jasmine для спецификаций и Karma для запуска.',
-    level: QuizLevel.Middle,
+    level: QuizQuestionLevel.Middle,
     topic: 'Тестирование'
   },
   {
@@ -269,7 +269,7 @@ export const angularQuizData: QuizViewModel[] = [
     correctAnswerIndexes: [0, 2, 3],
     allowMultipleAnswers: true,
     explanation: 'AOT (Ahead-of-Time) компилирует приложение во время build, уменьшая размер и ускоряя загрузку.',
-    level: QuizLevel.Senior,
+    level: QuizQuestionLevel.Senior,
     topic: 'Сборка'
   },
   {
@@ -284,7 +284,7 @@ export const angularQuizData: QuizViewModel[] = [
     correctAnswerIndexes: [0, 2, 3],
     allowMultipleAnswers: true,
     explanation: 'Standalone компоненты доступны с Angular 14 и улучшены в 15, 16 версиях.',
-    level: QuizLevel.Middle,
+    level: QuizQuestionLevel.Middle,
     topic: 'Angular Компоненты'
   }
 ];

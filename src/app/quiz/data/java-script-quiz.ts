@@ -1,7 +1,7 @@
-import { QuizLevel } from '../quiz-level';
-import { QuizViewModel } from '../quiz-view/quiz-view.model';
+import { QuizQuestionLevel } from '../quiz-question-level';
+import { QuizQuestion } from '../quiz-view/quiz-question';
 
-export const javaScriptQuizData: QuizViewModel[] = [
+export const javaScriptQuizData: QuizQuestion[] = [
   {
     id: 1,
     question: 'Какие примитивные типы данных существуют в JavaScript?',
@@ -14,7 +14,7 @@ export const javaScriptQuizData: QuizViewModel[] = [
     correctAnswerIndexes: [3],
     allowMultipleAnswers: false,
     explanation: 'JavaScript имеет примитивные типы: string, number, boolean, undefined, null, symbol и bigint.',
-    level: QuizLevel.Junior,
+    level: QuizQuestionLevel.Junior,
     topic: 'Типы данных'
   },
   {
@@ -29,7 +29,7 @@ export const javaScriptQuizData: QuizViewModel[] = [
     correctAnswerIndexes: [0],
     allowMultipleAnswers: false,
     explanation: 'Hoisting — это поведение, при котором объявления переменных и функций перемещаются в начало области видимости.',
-    level: QuizLevel.Junior,
+    level: QuizQuestionLevel.Junior,
     topic: 'Область видимости'
   },
   {
@@ -44,7 +44,7 @@ export const javaScriptQuizData: QuizViewModel[] = [
     correctAnswerIndexes: [0, 1, 2, 3],
     allowMultipleAnswers: true,
     explanation: 'var — функциональная область, let/const — блочная область, const нельзя переприсвоить.',
-    level: QuizLevel.Junior,
+    level: QuizQuestionLevel.Junior,
     topic: 'Переменные'
   },
   {
@@ -54,7 +54,7 @@ export const javaScriptQuizData: QuizViewModel[] = [
     correctAnswerIndexes: [1],
     allowMultipleAnswers: false,
     explanation: 'typeof для массива возвращает "object", так как в JavaScript массивы являются объектами.',
-    level: QuizLevel.Junior,
+    level: QuizQuestionLevel.Junior,
     topic: 'Типы данных'
   },
   {
@@ -69,7 +69,7 @@ export const javaScriptQuizData: QuizViewModel[] = [
     correctAnswerIndexes: [0],
     allowMultipleAnswers: false,
     explanation: 'Замыкание — функция с доступом к переменным области видимости, в которой она была создана.',
-    level: QuizLevel.Middle,
+    level: QuizQuestionLevel.Middle,
     topic: 'Функции'
   },
   {
@@ -84,7 +84,7 @@ export const javaScriptQuizData: QuizViewModel[] = [
     correctAnswerIndexes: [0, 1, 2, 3],
     allowMultipleAnswers: true,
     explanation: 'В JavaScript есть несколько способов создания объектов: литералы, конструкторы и классы.',
-    level: QuizLevel.Middle,
+    level: QuizQuestionLevel.Middle,
     topic: 'Объекты'
   },
   {
@@ -99,7 +99,7 @@ export const javaScriptQuizData: QuizViewModel[] = [
     correctAnswerIndexes: [1, 2],
     allowMultipleAnswers: true,
     explanation: 'Значение this зависит от того, как была вызвана функция и в каком контексте.',
-    level: QuizLevel.Middle,
+    level: QuizQuestionLevel.Middle,
     topic: 'Контекст'
   },
   {
@@ -114,7 +114,7 @@ export const javaScriptQuizData: QuizViewModel[] = [
     correctAnswerIndexes: [3],
     allowMultipleAnswers: false,
     explanation: 'Прототип — объект, используемый как образец для наследования свойств и методов.',
-    level: QuizLevel.Middle,
+    level: QuizQuestionLevel.Middle,
     topic: 'Прототипы'
   },
   {
@@ -129,7 +129,7 @@ export const javaScriptQuizData: QuizViewModel[] = [
     correctAnswerIndexes: [3],
     allowMultipleAnswers: false,
     explanation: 'Promise возвращает значение асинхронно и имеет три состояния.',
-    level: QuizLevel.Middle,
+    level: QuizQuestionLevel.Middle,
     topic: 'Promise и async/await'
   },
   {
@@ -144,7 +144,7 @@ export const javaScriptQuizData: QuizViewModel[] = [
     correctAnswerIndexes: [0, 1, 2, 3],
     allowMultipleAnswers: true,
     explanation: '== выполняет приведение типов, === строгое сравнение без приведения типов.',
-    level: QuizLevel.Junior,
+    level: QuizQuestionLevel.Junior,
     topic: 'Операторы сравнения'
   },
   {
@@ -159,7 +159,7 @@ export const javaScriptQuizData: QuizViewModel[] = [
     correctAnswerIndexes: [0, 1, 2, 3],
     allowMultipleAnswers: true,
     explanation: 'JavaScript предоставляет множество методов для работы с массивами.',
-    level: QuizLevel.Middle,
+    level: QuizQuestionLevel.Middle,
     topic: 'Методы массива'
   },
   {
@@ -174,7 +174,7 @@ export const javaScriptQuizData: QuizViewModel[] = [
     correctAnswerIndexes: [0, 1],
     allowMultipleAnswers: true,
     explanation: 'Деструктуризация позволяет извлекать значения из объектов и массивов удобным синтаксисом.',
-    level: QuizLevel.Middle,
+    level: QuizQuestionLevel.Middle,
     topic: 'Синтаксис'
   },
   {
@@ -189,7 +189,7 @@ export const javaScriptQuizData: QuizViewModel[] = [
     correctAnswerIndexes: [0, 1, 2, 3],
     allowMultipleAnswers: true,
     explanation: 'Spread оператор распаковывает элементы, используется для копирования и слияния.',
-    level: QuizLevel.Middle,
+    level: QuizQuestionLevel.Middle,
     topic: 'Операторы'
   },
   {
@@ -204,7 +204,7 @@ export const javaScriptQuizData: QuizViewModel[] = [
     correctAnswerIndexes: [3],
     allowMultipleAnswers: false,
     explanation: 'Event Loop управляет выполнением асинхронного кода и callback функций.',
-    level: QuizLevel.Senior,
+    level: QuizQuestionLevel.Senior,
     topic: 'Асинхронность'
   },
   {
@@ -219,7 +219,7 @@ export const javaScriptQuizData: QuizViewModel[] = [
     correctAnswerIndexes: [0, 1, 2, 3],
     allowMultipleAnswers: true,
     explanation: 'JavaScript поддерживает несколько механизмов обработки ошибок.',
-    level: QuizLevel.Middle,
+    level: QuizQuestionLevel.Middle,
     topic: 'Обработка ошибок'
   },
   {
@@ -234,7 +234,7 @@ export const javaScriptQuizData: QuizViewModel[] = [
     correctAnswerIndexes: [0, 1, 2, 3],
     allowMultipleAnswers: true,
     explanation: 'JSON — формат данных, и в JavaScript есть встроенный объект JSON для работы с ним.',
-    level: QuizLevel.Junior,
+    level: QuizQuestionLevel.Junior,
     topic: 'JSON'
   },
   {
@@ -249,7 +249,7 @@ export const javaScriptQuizData: QuizViewModel[] = [
     correctAnswerIndexes: [0, 1, 2, 3],
     allowMultipleAnswers: true,
     explanation: 'Module паттерн использует замыкания для создания приватного пространства имён.',
-    level: QuizLevel.Senior,
+    level: QuizQuestionLevel.Senior,
     topic: 'Паттерны'
   },
   {
@@ -264,7 +264,7 @@ export const javaScriptQuizData: QuizViewModel[] = [
     correctAnswerIndexes: [0, 1, 2, 3],
     allowMultipleAnswers: true,
     explanation: 'Binding позволяет управлять контекстом через call, apply, bind и стрелочные функции.',
-    level: QuizLevel.Senior,
+    level: QuizQuestionLevel.Senior,
     topic: 'Контекст'
   },
   {
@@ -279,7 +279,7 @@ export const javaScriptQuizData: QuizViewModel[] = [
     correctAnswerIndexes: [0, 1, 2, 3],
     allowMultipleAnswers: true,
     explanation: 'JavaScript развивается согласно стандартам ECMAScript, выпускаемым ежегодно.',
-    level: QuizLevel.Middle,
+    level: QuizQuestionLevel.Middle,
     topic: 'Стандарты'
   },
   {
@@ -294,7 +294,7 @@ export const javaScriptQuizData: QuizViewModel[] = [
     correctAnswerIndexes: [0, 1, 2, 3],
     allowMultipleAnswers: true,
     explanation: 'Web API — набор интерфейсов для взаимодействия с браузером и веб-платформой.',
-    level: QuizLevel.Middle,
+    level: QuizQuestionLevel.Middle,
     topic: 'Web API'
   }
 ];
