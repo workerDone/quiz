@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, computed, inject, OnDestroy, OnInit } from '@angular/core';
 import { MatCard, MatCardContent, MatCardHeader, MatCardSubtitle, MatCardTitle } from '@angular/material/card';
 import { MatProgressBar } from '@angular/material/progress-bar';
 import { MatChip, MatChipSet } from '@angular/material/chips';
@@ -12,6 +12,15 @@ import { QuizViewStore } from './quiz-view-store';
 import { MatButton } from '@angular/material/button';
 import { QuizViewResult } from './quiz-view-result';
 import { QuizQuestionService } from '../quiz-question.service';
+import { QuizQuestionLevel } from '../quiz-question-level';
+import { NgClass } from '@angular/common';
+import {
+  MatAccordion,
+  MatExpansionPanel,
+  MatExpansionPanelHeader,
+  MatExpansionPanelTitle
+} from '@angular/material/expansion';
+import { MatDivider } from '@angular/material/list';
 
 @Component({
   selector: 'app-quiz-view',
@@ -31,6 +40,12 @@ import { QuizQuestionService } from '../quiz-question.service';
     MatRadioButton,
     MatCheckbox,
     MatButton,
+    NgClass,
+    MatAccordion,
+    MatExpansionPanel,
+    MatExpansionPanelHeader,
+    MatExpansionPanelTitle,
+    MatDivider,
   ]
 })
 export class QuizView implements OnInit, OnDestroy {
@@ -38,6 +53,8 @@ export class QuizView implements OnInit, OnDestroy {
   quizViewStore = inject(QuizViewStore);
   selectedAnswers: Map<number, number[]> = new Map();
   quizResult: QuizViewResult | null = null;
+  questionLevelTest = computed(() => this.getQuestionLevelText(this.quizViewStore.currentQuestionLevel()));
+  readonly juniorQuizQuestionLevel = QuizQuestionLevel.Junior;
 
   constructor(private quizQuestionService: QuizQuestionService) {
   }
@@ -53,25 +70,25 @@ export class QuizView implements OnInit, OnDestroy {
   }
 
   selectMultipleAnswers(event: { checked: boolean }, optionIndex: number) {
-    if (this.selectedAnswers.has(this.quizViewStore.currentQuestionIndex())) {
-      const options = this.selectedAnswers.get(this.quizViewStore.currentQuestionIndex())!;
+    if (this.selectedAnswers.has(this.quizViewStore.currentQuestion().id)) {
+      const options = this.selectedAnswers.get(this.quizViewStore.currentQuestion().id)!;
       const newOptions = event.checked ? [...options, optionIndex] : options.filter(index => index !== optionIndex);
       if (newOptions.length > 0) {
-        this.selectedAnswers.set(this.quizViewStore.currentQuestionIndex(), newOptions);
+        this.selectedAnswers.set(this.quizViewStore.currentQuestion().id, newOptions);
       } else {
-        this.selectedAnswers.delete(this.quizViewStore.currentQuestionIndex());
+        this.selectedAnswers.delete(this.quizViewStore.currentQuestion().id);
       }
     } else if (event.checked) {
-      this.selectedAnswers.set(this.quizViewStore.currentQuestionIndex(), [optionIndex]);
+      this.selectedAnswers.set(this.quizViewStore.currentQuestion().id, [optionIndex]);
     }
   }
 
   selectAnswer(optionIndex: number) {
-    this.selectedAnswers.set(this.quizViewStore.currentQuestionIndex(), [optionIndex]);
+    this.selectedAnswers.set(this.quizViewStore.currentQuestion().id, [optionIndex]);
   }
 
   isAnswerSelected(optionIndex: number): boolean {
-    const answers = this.selectedAnswers.get(this.quizViewStore.currentQuestionIndex()) || [];
+    const answers = this.selectedAnswers.get(this.quizViewStore.currentQuestion().id) || [];
     return answers.includes(optionIndex);
   }
 
@@ -81,7 +98,6 @@ export class QuizView implements OnInit, OnDestroy {
     this.quizResult = this.quizQuestionService.calculateScore(this.quizViewStore.questions(),
       userAnswers);
     console.log(this.quizResult);
-    // this.isQuizCompleted = true;
   }
 
 
@@ -91,7 +107,16 @@ export class QuizView implements OnInit, OnDestroy {
     this.quizResult = null;
   }
 
-  canSubmit(): boolean {
-    return true;
+  getQuestionLevelText(level: QuizQuestionLevel): string {
+    switch (level) {
+      case QuizQuestionLevel.Junior:
+        return 'Junior';
+      case QuizQuestionLevel.Middle:
+        return 'Middle';
+      case QuizQuestionLevel.Senior:
+        return 'Senior';
+      default:
+        return 'Unknown';
+    }
   }
 }

@@ -15,7 +15,7 @@ export class QuizQuestionService {
     questions.forEach(question => {
       const userAnswer = answers.find(a => a.questionId === question.id);
       const selectedIndexes = userAnswer?.selectedIndexes || [];
-      const isCorrect = this.checkAnswer(question.correctAnswerIndexes, selectedIndexes);
+      const isCorrect = this.isAnswerCorrect(question.correctAnswerIndexes, selectedIndexes);
       if (isCorrect) {
         correctAnswers++;
       }
@@ -35,12 +35,12 @@ export class QuizQuestionService {
     };
   }
 
-  private checkAnswer(correctAnswerIndexes: number[], selectedIndexes: number[]): boolean {
-    const correctIndexes = correctAnswerIndexes.sort((a, b) => a - b);
-    const userIndexes = selectedIndexes.sort((a, b) => a - b);
-    if (correctIndexes.length !== userIndexes.length) {
+  private isAnswerCorrect(correctAnswerIndexes: number[], selectedIndexes: number[]): boolean {
+    const sortedCorrectIndexes = correctAnswerIndexes.sort((a, b) => a - b);
+    const sortedSelectedIndexes = selectedIndexes.sort((a, b) => a - b);
+    if (sortedCorrectIndexes.length !== sortedSelectedIndexes.length) {
       return false;
     }
-    return correctIndexes.every((index, i) => index === userIndexes[i]);
+    return sortedCorrectIndexes.every((index, i) => index === sortedSelectedIndexes[i]);
   }
 }

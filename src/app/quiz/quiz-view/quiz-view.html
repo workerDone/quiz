@@ -1,33 +1,37 @@
 <div class="quiz-container">
   @if (quizResult == null) {
     <div class="quiz-content">
-      <mat-card class="quiz-header">
+      <mat-card class="header-content">
         <mat-card-header>
           <mat-card-title>{{ quizViewStore.currentQuestion().topic }}</mat-card-title>
           <mat-card-subtitle>Вопрос {{ quizViewStore.currentQuestionIndex() + 1 }}
             из {{ quizViewStore.questions().length }}
+
           </mat-card-subtitle>
         </mat-card-header>
-        <mat-progress-bar mode="determinate" [value]="quizViewStore.progress"></mat-progress-bar>
+        <div class="progress">
+          <mat-progress-bar mode="determinate" [value]="quizViewStore.progress()"></mat-progress-bar>
+        </div>
       </mat-card>
-      <mat-card class="question-card">
+      <mat-card class="question-content">
         <mat-card-content>
-          <h2 class="question-text">{{ quizViewStore.currentQuestion().question }}</h2>
-          <mat-chip-set aria-label="Уровень сложности" class="level-chip">
-            <mat-chip [highlighted]="quizViewStore.currentQuestion().level === 0">
-              {{ quizViewStore.currentQuestion().level === 0 ? 'Junior' : quizViewStore.currentQuestion().level === 1 ? 'Middle' : 'Senior' }}
-            </mat-chip>
-          </mat-chip-set>
-          @if (quizViewStore.currentQuestion().allowMultipleAnswers) {
-            <p class="info-text">
-              <mat-icon>info</mat-icon>
+          <div class="title">
+            <mat-chip-set aria-label="Уровень сложности" class="level">
+              <mat-chip [highlighted]="quizViewStore.currentQuestionLevel() === juniorQuizQuestionLevel">
+                {{ questionLevelTest() }}
+              </mat-chip>
+            </mat-chip-set>
+            {{ quizViewStore.currentQuestion().question }}
+          </div>
+          <div class="details">
+            @if (quizViewStore.currentQuestion().allowMultipleAnswers) {
+              <mat-icon class="icon">info</mat-icon>
               Возможно выбрать несколько ответов
-            </p>
-          }
+            }
+          </div>
         </mat-card-content>
       </mat-card>
-      Options
-      <mat-card class="options-card">
+      <mat-card class="options-content">
         <mat-card-content>
           @if (quizViewStore.currentQuestion().allowMultipleAnswers) {
             <div class="checkbox-group">
@@ -43,7 +47,7 @@
           } @else {
             <mat-radio-group
               class="radio-group"
-              [value]="selectedAnswers.get(quizViewStore.currentQuestionIndex())?.[0]">
+              [value]="selectedAnswers.get(quizViewStore.currentQuestion().id)?.[0]">
               @for (option of quizViewStore.currentQuestion().options; track option; let i = $index) {
                 <mat-radio-button
                   [value]="i"
@@ -56,9 +60,8 @@
           }
         </mat-card-content>
       </mat-card>
-      Navigation Buttons
-      <mat-card class="navigation-card">
-        <mat-card-content class="button-group">
+      <mat-card class="button-content">
+        <mat-card-content class="button-container">
           <button
             mat-raised-button
             color="primary"
@@ -67,7 +70,6 @@
             <mat-icon>arrow_back</mat-icon>
             Назад
           </button>
-          <span class="spacer"></span>
           <button
             mat-raised-button
             color="primary"
@@ -79,95 +81,97 @@
           <button
             mat-raised-button
             color="accent"
-            [disabled]="!canSubmit()"
-            (click)="submitQuiz()"
-            class="submit-button">
+            [disabled]="quizViewStore.progress() !== 100"
+            (click)="submitQuiz()">
             <mat-icon>check_circle</mat-icon>
             Отправить
           </button>
         </mat-card-content>
       </mat-card>
     </div>
+  } @else {
+    <div class="quiz-results-content">
+      <mat-card class="header-content">
+        <mat-card-content>
+          <div class="title">Результаты викторины</div>
+            <div class="result">
+              Правильных ответов:
+              <span class="value">{{ quizResult.correctAnswers }}/{{ quizViewStore.questions().length }}</span>
+            </div>
+            <div class="result">
+              Процент:
+              <span class="value"
+                    [ngClass]="{'high-score': quizResult.percentage >= 80, 'medium-score': quizResult.percentage >= 60, 'low-score': quizResult.percentage < 60}">
+                  {{ quizResult.percentage }}%
+                </span>
+            </div>
+          <mat-progress-bar class="percentage" mode="determinate" [value]="quizResult.percentage"></mat-progress-bar>
+        </mat-card-content>
+      </mat-card>
+      <div class="details-content">
+        <mat-accordion>
+          @for (answer of quizResult.answers; track $index; let i = $index) {
+            <mat-expansion-panel
+              [class.correct-answer]="answer.isCorrect"
+              [class.incorrect-answer]="!answer.isCorrect">
+
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <mat-icon [color]="answer.isCorrect ? 'accent' : 'warn'">
+                    {{ answer.isCorrect ? 'check_circle' : 'cancel' }}
+                  </mat-icon>
+                  Вопрос {{ i + 1 }}: {{ answer.question.question }}
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <div class="panel-content">
+                <p class="answer-status" [ngClass]="answer.isCorrect ? 'correct' : 'incorrect'">
+                  {{ answer.isCorrect ? '✓ Правильно' : '✗ Неправильно' }}
+                </p>
+                <div class="answer-details">
+                  <p class="label">Ваш ответ:</p>
+                  <p class="answer">
+                    @for (selectedIndex of answer.selectedIndexes; track $index; let last = $last) {
+                      <span>{{ answer.question.options[selectedIndex] }}
+                        @if (!last) {
+                          <span>, </span>
+                        }
+                    </span>
+                    }
+                  </p>
+                </div>
+                <div class="correct-answer-details">
+                  <p class="label">Правильный ответ:</p>
+                  <p class="answer">
+                    @for (correctAnswerIndex of answer.question.correctAnswerIndexes; track $index; let last = $last) {
+                      <span>{{ answer.question.options[correctAnswerIndex] }}
+                        @if (!last) {
+                          <span>, </span>
+                        }
+                    </span>
+                    }
+                  </p>
+                </div>
+                <mat-divider></mat-divider>
+                <div class="explanation">
+                  <p class="label">Объяснение:</p>
+                  <p>{{ answer.question.explanation }}</p>
+                </div>
+              </div>
+            </mat-expansion-panel>
+          }
+        </mat-accordion>
+      </div>
+      <mat-card class="restart-content">
+        <mat-card-content>
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="restartQuiz()">
+            <mat-icon>refresh</mat-icon>
+            Пройти заново
+          </button>
+        </mat-card-content>
+      </mat-card>
+    </div>
   }
-
-<!--  @if (quizViewStore.isQuizCompleted()) {-->
-<!--    Quiz Results-->
-<!--    <div class="quiz-results">-->
-<!--      <mat-card class="results-header">-->
-<!--        <mat-card-content>-->
-<!--          <h1 class="score-title">Результаты викторины</h1>-->
-<!--          <div class="score-section">-->
-<!--            <div class="score-item">-->
-<!--              <span class="score-label">Правильных ответов:</span>-->
-<!--              <span class="score-value">{{ quizResult.correctAnswers }}/{{ quizViewStore.questions().length }}</span>-->
-<!--            </div>-->
-<!--            <div class="score-item">-->
-<!--              <span class="score-label">Процент:</span>-->
-<!--              <span class="score-value" [ngClass]="{'high-score': quizResult.percentage >= 80, 'medium-score': quizResult.percentage >= 60, 'low-score': quizResult.percentage < 60}">-->
-<!--                {{ quizResult.percentage }}%-->
-<!--              </span>-->
-<!--            </div>-->
-<!--          </div><mat-progress-bar mode="determinate" [value]="quizResult.percentage"></mat-progress-bar>-->
-<!--        </mat-card-content>-->
-<!--      </mat-card>-->
-
-<!--      &lt;!&ndash; Detailed Results &ndash;&gt;-->
-<!--      <div class="results-details">-->
-<!--        <mat-accordion>-->
-<!--          <mat-expansion-panel-->
-<!--            *ngFor="let result of quizResult.answers; let i = index"-->
-<!--            [class.correct-answer]="result.isCorrect"-->
-<!--            [class.incorrect-answer]="!result.isCorrect">-->
-
-<!--            <mat-expansion-panel-header>-->
-<!--              <mat-panel-title>-->
-<!--                <mat-icon [color]="result.isCorrect ? 'accent' : 'warn'">-->
-<!--                  {{ result.isCorrect ? 'check_circle' : 'cancel' }}-->
-<!--                </mat-icon>Вопрос {{ i + 1 }}: {{ result.question.question }}-->
-<!--              </mat-panel-title>-->
-<!--            </mat-expansion-panel-header>-->
-<!--            <div class="panel-content">-->
-<!--              <p class="answer-status" [ngClass]="result.isCorrect ? 'correct' : 'incorrect'">-->
-<!--                {{ result.isCorrect ? '✓ Правильно' : '✗ Неправильно' }}-->
-<!--              </p>-->
-<!--              <div class="answer-details">-->
-<!--                <p class="label">Ваш ответ:</p>-->
-<!--                <p class="answer">-->
-<!--                  <span *ngFor="let idx of result.selectedIndexes; let last = last">-->
-<!--                    {{ result.question.options[idx] }}<span *ngIf="!last">, </span>-->
-<!--                  </span>-->
-<!--                </p>-->
-<!--              </div>-->
-<!--              <div class="correct-answer-details">-->
-<!--                <p class="label">Правильный ответ:</p>-->
-<!--                <p class="answer">-->
-<!--                  <span *ngFor="let idx of result.question.correctAnswerIndexes; let last = last">-->
-<!--                    {{ result.question.options[idx] }}<span *ngIf="!last">, </span>-->
-<!--                  </span>-->
-<!--                </p>-->
-<!--              </div>-->
-<!--              <mat-divider></mat-divider>-->
-<!--              <div class="explanation">-->
-<!--                <p class="label">Объяснение:</p>-->
-<!--                <p>{{ result.question.explanation }}</p>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </mat-expansion-panel>-->
-<!--        </mat-accordion>-->
-<!--      </div>-->
-
-<!--      <mat-card class="restart-card">-->
-<!--        <mat-card-content>-->
-<!--          <button-->
-<!--            mat-raised-button-->
-<!--            color="primary"-->
-<!--            (click)="restartQuiz()"-->
-<!--            class="restart-button">-->
-<!--            <mat-icon>refresh</mat-icon>-->
-<!--            Пройти заново-->
-<!--          </button>-->
-<!--        </mat-card-content>-->
-<!--      </mat-card>-->
-<!--    </div> -->
-<!--  }-->
 </div>

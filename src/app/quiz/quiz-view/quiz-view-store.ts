@@ -18,6 +18,7 @@ export const QuizViewStore = signalStore(
   withComputed(({ currentQuestionIndex, questions }) => ({
     progress: computed(() => (currentQuestionIndex() + 1) / questions().length * 100),
     currentQuestion: computed(() => questions()[currentQuestionIndex()]),
+    currentQuestionLevel: computed(() => questions()[currentQuestionIndex()].level),
   })),
   withMethods((store) => ({
       setQuestions(questions: QuizQuestion[]): void {
