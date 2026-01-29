@@ -1,0 +1,6 @@
+@use '../../variables' as *;
+
+.title {
+  font-size: $titleFontSize;
+  padding-bottom: $padding;
+}

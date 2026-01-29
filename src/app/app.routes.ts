@@ -4,6 +4,7 @@ import { Main } from './main/main';
 import { Quiz } from './quiz/quiz';
 import { Login } from './login/login';
 import { quizViewResolver } from './quiz/quiz-view/quiz-view.resolver';
+import { quizListResolver } from './quiz/quiz-list/quiz-list.resolver';
 
 export const routes: Routes = [
   {
@@ -26,6 +27,9 @@ export const routes: Routes = [
         children: [
           {
             path: '',
+            resolve: {
+              quizList: quizListResolver
+            },
             loadComponent: () => import('./quiz/quiz-list/quiz-list').then(component => component.QuizList),
           },
           {

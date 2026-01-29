@@ -38,13 +38,13 @@ import { QuizListItemModel } from '../quiz-list/quiz-list-item.model';
   ]
 })
 export class QuizView implements OnInit, OnDestroy {
-  private route = inject(ActivatedRoute);
   quizViewStore = inject(QuizViewStore);
   selectedAnswers: Map<number, number[]> = new Map();
   quizResult: WritableSignal<QuizResultModel | null> = signal(null);
   questionLevelTest = computed(() => this.getQuestionLevelText(this.quizViewStore.currentQuestionLevel()));
   private quizQuestionService = inject(QuizQuestionService);
   private quizViewApiService = inject(QuizViewApiService);
+  private route = inject(ActivatedRoute);
   readonly juniorQuizQuestionLevel = QuizQuestionLevel.Junior;
 
   ngOnInit(): void {
