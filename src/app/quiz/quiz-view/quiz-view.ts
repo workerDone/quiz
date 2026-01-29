@@ -1,26 +1,20 @@
-import { Component, computed, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, computed, inject, OnDestroy, OnInit, signal, WritableSignal } from '@angular/core';
 import { MatCard, MatCardContent, MatCardHeader, MatCardSubtitle, MatCardTitle } from '@angular/material/card';
-import { MatProgressBar } from '@angular/material/progress-bar';
 import { MatChip, MatChipSet } from '@angular/material/chips';
 import { MatIcon } from '@angular/material/icon';
 import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
 import { MatCheckbox } from '@angular/material/checkbox';
-import { first, Observable } from 'rxjs';
-import { DataQuizItemModel } from '../data/data-quiz-item.model';
-import { ActivatedRoute } from '@angular/router';
-import { QuizViewStore } from './quiz-view-store';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 import { MatButton } from '@angular/material/button';
-import { QuizViewResult } from './quiz-view-result';
-import { QuizQuestionService } from '../quiz-question.service';
-import { QuizQuestionLevel } from '../quiz-question-level';
-import { NgClass } from '@angular/common';
-import {
-  MatAccordion,
-  MatExpansionPanel,
-  MatExpansionPanelHeader,
-  MatExpansionPanelTitle
-} from '@angular/material/expansion';
-import { MatDivider } from '@angular/material/list';
+import { MatProgressBar } from '@angular/material/progress-bar';
+import { first, Observable, switchMap } from 'rxjs';
+import { QuizViewStore } from './quiz-view-store';
+import { QuizResultModel } from '../quiz-result/quiz-result.model';
+import { QuizQuestionService } from './quiz-question.service';
+import { QuizQuestionLevel } from './quiz-question-level';
+import { QuizResult } from '../quiz-result/quiz-result';
+import { QuizViewApiService } from './quiz-view-api.service';
+import { QuizListItemModel } from '../quiz-list/quiz-list-item.model';
 
 @Component({
   selector: 'app-quiz-view',
@@ -40,33 +34,29 @@ import { MatDivider } from '@angular/material/list';
     MatRadioButton,
     MatCheckbox,
     MatButton,
-    NgClass,
-    MatAccordion,
-    MatExpansionPanel,
-    MatExpansionPanelHeader,
-    MatExpansionPanelTitle,
-    MatDivider,
+    QuizResult,
   ]
 })
 export class QuizView implements OnInit, OnDestroy {
   private route = inject(ActivatedRoute);
   quizViewStore = inject(QuizViewStore);
   selectedAnswers: Map<number, number[]> = new Map();
-  quizResult: QuizViewResult | null = null;
+  quizResult: WritableSignal<QuizResultModel | null> = signal(null);
   questionLevelTest = computed(() => this.getQuestionLevelText(this.quizViewStore.currentQuestionLevel()));
+  private quizQuestionService = inject(QuizQuestionService);
+  private quizViewApiService = inject(QuizViewApiService);
   readonly juniorQuizQuestionLevel = QuizQuestionLevel.Junior;
 
-  constructor(private quizQuestionService: QuizQuestionService) {
-  }
-
   ngOnInit(): void {
-    (this.route.data as Observable<{ quiz: DataQuizItemModel }>)
+    (this.route.data as Observable<{ quiz: QuizListItemModel }>)
       .pipe(first()).subscribe(data => {
       this.quizViewStore.setQuestions(data.quiz.value);
+      this.quizResult.set(data.quiz.result);
     });
   }
 
   ngOnDestroy(): void {
+    this.quizViewStore.dispose();
   }
 
   selectMultipleAnswers(event: { checked: boolean }, optionIndex: number) {
@@ -95,16 +85,21 @@ export class QuizView implements OnInit, OnDestroy {
   submitQuiz(): void {
     const userAnswers = Array.from(this.selectedAnswers.entries())
       .map(([questionId, selectedIndexes]) => ({ questionId, selectedIndexes }));
-    this.quizResult = this.quizQuestionService.calculateScore(this.quizViewStore.questions(),
-      userAnswers);
-    console.log(this.quizResult);
+    this.quizResult.set(this.quizQuestionService.calculateScore(this.quizViewStore.questions(),
+      userAnswers));
+    this.route.paramMap.pipe(first(),
+      switchMap((params: ParamMap) => this.quizViewApiService.saveQuizResult(params.get('id')!, this.quizResult()!)))
+      .subscribe();
   }
 
 
   restartQuiz(): void {
-    this.quizViewStore.resetQuestion();
-    this.selectedAnswers.clear();
-    this.quizResult = null;
+    this.route.paramMap.pipe(first(),
+      switchMap((params: ParamMap) => this.quizViewApiService.deleteQuizResult(params.get('id')!)))
+      .subscribe(() => {
+        this.selectedAnswers.clear();
+        this.quizResult.set(null);
+      });
   }
 
   getQuestionLevelText(level: QuizQuestionLevel): string {

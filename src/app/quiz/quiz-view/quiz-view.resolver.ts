@@ -1,13 +1,13 @@
 import { ActivatedRouteSnapshot, ResolveFn } from '@angular/router';
 import { inject } from '@angular/core';
 import { first, Observable } from 'rxjs';
-import { QuizViewApi } from './quiz-view-api';
-import { DataQuizItemModel } from '../data/data-quiz-item.model';
+import { QuizViewApiService } from './quiz-view-api.service';
+import { QuizItemModel } from '../data/quiz-item.model';
 
-export const quizViewResolver: ResolveFn<DataQuizItemModel> = (
+export const quizViewResolver: ResolveFn<QuizItemModel> = (
   route: ActivatedRouteSnapshot,
-): Observable<DataQuizItemModel> => {
-  const quizViewApi = inject(QuizViewApi);
+): Observable<QuizItemModel> => {
+  const quizViewApiService = inject(QuizViewApiService);
   const quizId = route.paramMap.get('id')!;
-  return quizViewApi.getQuiz(Number(quizId)).pipe(first());
+  return quizViewApiService.getQuiz(quizId).pipe(first());
 };

@@ -1,12 +1,10 @@
-<div class="quiz-container">
-  @if (quizResult == null) {
-    <div class="quiz-content">
+  @if (quizResult() == null) {
+    <div class="content">
       <mat-card class="header-content">
         <mat-card-header>
           <mat-card-title>{{ quizViewStore.currentQuestion().topic }}</mat-card-title>
           <mat-card-subtitle>Вопрос {{ quizViewStore.currentQuestionIndex() + 1 }}
             из {{ quizViewStore.questions().length }}
-
           </mat-card-subtitle>
         </mat-card-header>
         <div class="progress">
@@ -90,88 +88,5 @@
       </mat-card>
     </div>
   } @else {
-    <div class="quiz-results-content">
-      <mat-card class="header-content">
-        <mat-card-content>
-          <div class="title">Результаты викторины</div>
-            <div class="result">
-              Правильных ответов:
-              <span class="value">{{ quizResult.correctAnswers }}/{{ quizViewStore.questions().length }}</span>
-            </div>
-            <div class="result">
-              Процент:
-              <span class="value"
-                    [ngClass]="{'high-score': quizResult.percentage >= 80, 'medium-score': quizResult.percentage >= 60, 'low-score': quizResult.percentage < 60}">
-                  {{ quizResult.percentage }}%
-                </span>
-            </div>
-          <mat-progress-bar class="percentage" mode="determinate" [value]="quizResult.percentage"></mat-progress-bar>
-        </mat-card-content>
-      </mat-card>
-      <div class="details-content">
-        <mat-accordion>
-          @for (answer of quizResult.answers; track $index; let i = $index) {
-            <mat-expansion-panel
-              [class.correct-answer]="answer.isCorrect"
-              [class.incorrect-answer]="!answer.isCorrect">
-
-              <mat-expansion-panel-header>
-                <mat-panel-title>
-                  <mat-icon [color]="answer.isCorrect ? 'accent' : 'warn'">
-                    {{ answer.isCorrect ? 'check_circle' : 'cancel' }}
-                  </mat-icon>
-                  Вопрос {{ i + 1 }}: {{ answer.question.question }}
-                </mat-panel-title>
-              </mat-expansion-panel-header>
-              <div class="panel-content">
-                <p class="answer-status" [ngClass]="answer.isCorrect ? 'correct' : 'incorrect'">
-                  {{ answer.isCorrect ? '✓ Правильно' : '✗ Неправильно' }}
-                </p>
-                <div class="answer-details">
-                  <p class="label">Ваш ответ:</p>
-                  <p class="answer">
-                    @for (selectedIndex of answer.selectedIndexes; track $index; let last = $last) {
-                      <span>{{ answer.question.options[selectedIndex] }}
-                        @if (!last) {
-                          <span>, </span>
-                        }
-                    </span>
-                    }
-                  </p>
-                </div>
-                <div class="correct-answer-details">
-                  <p class="label">Правильный ответ:</p>
-                  <p class="answer">
-                    @for (correctAnswerIndex of answer.question.correctAnswerIndexes; track $index; let last = $last) {
-                      <span>{{ answer.question.options[correctAnswerIndex] }}
-                        @if (!last) {
-                          <span>, </span>
-                        }
-                    </span>
-                    }
-                  </p>
-                </div>
-                <mat-divider></mat-divider>
-                <div class="explanation">
-                  <p class="label">Объяснение:</p>
-                  <p>{{ answer.question.explanation }}</p>
-                </div>
-              </div>
-            </mat-expansion-panel>
-          }
-        </mat-accordion>
-      </div>
-      <mat-card class="restart-content">
-        <mat-card-content>
-          <button
-            mat-raised-button
-            color="primary"
-            (click)="restartQuiz()">
-            <mat-icon>refresh</mat-icon>
-            Пройти заново
-          </button>
-        </mat-card-content>
-      </mat-card>
-    </div>
+    <app-quiz-result [quizResult]="quizResult()!" (restartQuiz)="restartQuiz()"  ></app-quiz-result>
   }
-</div>

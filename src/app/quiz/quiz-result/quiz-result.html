@@ -1,0 +1,90 @@
+<div class="content">
+  <mat-card class="header-content">
+    <mat-card-content>
+      <div class="title">Результаты викторины</div>
+      <div class="result">
+        Правильных ответов:
+        <span class="value"
+              [ngClass]="{'high-score': quizResult().percentage >= 80, 'medium-score': quizResult().percentage >= 60, 'low-score': quizResult().percentage < 60}"
+        >{{ quizResult().correctAnswers }}/{{ quizResult().answers.length }}</span>
+      </div>
+      <div class="result">
+        Процент:
+        <span class="value"
+              [ngClass]="{'high-score': quizResult().percentage >= 80, 'medium-score': quizResult().percentage >= 60, 'low-score': quizResult().percentage < 60}">
+                  {{ quizResult().percentage }}%
+                </span>
+      </div>
+      <mat-progress-bar class="percentage" mode="determinate" [value]="quizResult().percentage"></mat-progress-bar>
+    </mat-card-content>
+  </mat-card>
+  <div class="details-content">
+    <mat-accordion>
+      @for (answer of quizResult().answers; track answer.question.id; let i = $index) {
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              @if (answer.isCorrect) {
+                <mat-icon class="answer-icon correct">check_circle</mat-icon>
+              } @else {
+                <mat-icon class="answer-icon incorrect">cancel</mat-icon>
+              }
+              Вопрос {{ i + 1 }}: {{ answer.question.question }}
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div class="panel-content">
+            @if (answer.isCorrect) {
+              <div class="status correct">✓ Правильно</div>
+            } @else {
+              <div class="status incorrect">✗ Неправильно</div>
+              <div class="answer-content">
+                <div class="label">Ваш ответ:</div>
+                <div class="value">
+                  @if (answer.selectedIndexes.length) {
+                    @for (selectedIndex of answer.selectedIndexes; track selectedIndex; let last = $last) {
+                      <span>{{ answer.question.options[selectedIndex] }}
+                        @if (!last) {
+                          <span>, </span>
+                        }
+                        </span>
+                    }
+                  } @else {
+                    Нет ответа
+                  }
+                </div>
+              </div>
+            }
+            <div class="answer-content">
+              <div class="label">Правильный ответ:</div>
+              <div class="value">
+                @for (correctAnswerIndex of answer.question.correctAnswerIndexes; track correctAnswerIndex; let last = $last) {
+                  <span>{{ answer.question.options[correctAnswerIndex] }}
+                    @if (!last) {
+                      <span>, </span>
+                    }
+                    </span>
+                }
+              </div>
+            </div>
+            <mat-divider></mat-divider>
+            <div class="explanation">
+              <div class="label">Объяснение:</div>
+              <div class="value">{{ answer.question.explanation }}</div>
+            </div>
+          </div>
+        </mat-expansion-panel>
+      }
+    </mat-accordion>
+  </div>
+  <mat-card class="restart-content">
+    <mat-card-content>
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="restartQuiz.emit()">
+        <mat-icon>refresh</mat-icon>
+        Пройти заново
+      </button>
+    </mat-card-content>
+  </mat-card>
+</div>

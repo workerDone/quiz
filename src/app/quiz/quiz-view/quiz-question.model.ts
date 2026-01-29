@@ -1,6 +1,6 @@
-import { QuizQuestionLevel } from '../quiz-question-level';
+import { QuizQuestionLevel } from './quiz-question-level';
 
-export interface QuizQuestion {
+export interface QuizQuestionModel {
   id: number;
   question: string;
   options: string[];

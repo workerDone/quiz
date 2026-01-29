@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
-import { QuizQuestion } from './quiz-view/quiz-question';
-import { UserAnswer } from './quiz-view/user-answer';
-import { QuizAnswerResult } from './quiz-view/quiz-answer-result';
-import { QuizViewResult } from './quiz-view/quiz-view-result';
+import { QuizQuestionModel } from './quiz-question.model';
+import { UserAnswer } from './user-answer';
+import { QuizAnswerResultModel } from '../quiz-result/quiz-answer-result.model';
+import { QuizResultModel } from '../quiz-result/quiz-result.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class QuizQuestionService {
 
-  calculateScore(questions: QuizQuestion[], answers: UserAnswer[]): QuizViewResult {
+  calculateScore(questions: QuizQuestionModel[], answers: UserAnswer[]): QuizResultModel {
     let correctAnswers = 0;
-    const answerResults: QuizAnswerResult[] = [];
+    const answerResults: QuizAnswerResultModel[] = [];
     questions.forEach(question => {
       const userAnswer = answers.find(a => a.questionId === question.id);
       const selectedIndexes = userAnswer?.selectedIndexes || [];

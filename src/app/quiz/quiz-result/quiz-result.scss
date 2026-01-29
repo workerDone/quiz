@@ -1,0 +1,81 @@
+@use '../../../variables' as *;
+
+.content {
+  .header-content {
+    margin-bottom: $bigPadding;
+
+    .title {
+      font-size: $titleFontSize;
+      padding-bottom: $smallPadding;
+    }
+
+    .result {
+      color: $midGray800;
+
+      .value {
+        &.high-score {
+            color: $green500;
+        }
+        &.medium-score {
+            color: $yellow600;
+        }
+        &.low-score {
+          color: $red500;
+        }
+      }
+    }
+
+    .percentage {
+      margin-top: $smallPadding;
+    }
+  }
+
+  .details-content {
+    margin-bottom: $bigPadding;
+
+    .correct {
+      color: $green500;
+    }
+
+    .incorrect {
+      color: $red500;
+    }
+
+    .answer-icon {
+      margin-right: $smallPadding;
+    }
+
+    .panel-content {
+      .status {
+        margin-bottom: $smallPadding;
+      }
+
+      .answer-content {
+        margin-bottom: $smallPadding;
+
+        .label {
+          color: $midGray800;
+          margin: 0 0 $smallPadding 0;
+        }
+
+        .value {
+          color: $darkGray800;
+          margin: 0;
+        }
+      }
+
+      .explanation {
+        padding-top: $smallPadding;
+
+        .label {
+          color: $midGray800;
+          margin: 0 0 $smallPadding 0;
+        }
+
+        .value {
+          color: $darkGray800;
+        }
+      }
+    }
+  }
+}

@@ -1,9 +1,9 @@
 import { patchState, signalStore, withComputed, withMethods, withState } from '@ngrx/signals';
-import { QuizQuestion } from './quiz-question';
+import { QuizQuestionModel } from './quiz-question.model';
 import { computed } from '@angular/core';
 
 export interface QuizState {
-  questions: QuizQuestion[];
+  questions: QuizQuestionModel[];
   currentQuestionIndex: number;
 }
 
@@ -21,7 +21,7 @@ export const QuizViewStore = signalStore(
     currentQuestionLevel: computed(() => questions()[currentQuestionIndex()].level),
   })),
   withMethods((store) => ({
-      setQuestions(questions: QuizQuestion[]): void {
+      setQuestions(questions: QuizQuestionModel[]): void {
         patchState(store, { questions });
       },
       showNextQuestion(): void {
@@ -32,8 +32,8 @@ export const QuizViewStore = signalStore(
         const currentQuestionIndex = store.currentQuestionIndex() - 1;
         patchState(store, { currentQuestionIndex });
       },
-      resetQuestion(): void {
-        patchState(store, { currentQuestionIndex: 0});
+      dispose(): void {
+        patchState(store, initialState);
       },
     })
   )

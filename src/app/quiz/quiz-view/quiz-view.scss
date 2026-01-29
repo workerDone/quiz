@@ -1,75 +1,51 @@
 @use '../../../variables' as *;
 
-.header-content {
-  margin-bottom: $bigPadding;
-
-  .progress {
-    padding: 0 $medialPadding  $medialPadding $medialPadding;
-  }
-}
-
-.question-content {
-  margin-bottom: $bigPadding;
-
-  .title {
-    display: flex;
-    align-items: center;
-    font-size: $titleFontSize;
-
-    .level {
-      padding-right: $smallPadding;
-    }
-  }
-
-  .details {
-    height: $bigPadding;
-    display: flex;
-    align-items: center;
-
-    .icon {
-      padding-right: $smallPadding;
-    }
-  }
-}
-
-.options-content {
-  margin-bottom: $bigPadding;
-
-  .radio-group, .checkbox-group {
-    display: flex;
-    flex-direction: column;
-  }
-}
-
-.button-content {
-  .button-container {
-    display: flex;
-    gap: $padding;
-  }
-}
-
-.quiz-results-content {
+.content {
   .header-content {
     margin-bottom: $bigPadding;
-    .title {
-      font-size: $titleFontSize;
-      padding-bottom: $smallPadding;
-    }
 
-    .result {
-      .percentage {
-        padding-bottom: $smallPadding;
-      }
-      .value {
-        padding-left: $smallPadding;
-      }
-    }
-
-    .percentage {
-      margin-top: $smallPadding;
+    .progress {
+      padding: 0 $medialPadding $medialPadding $medialPadding;
     }
   }
-  .details-content {
+
+  .question-content {
     margin-bottom: $bigPadding;
+
+    .title {
+      display: flex;
+      align-items: center;
+      font-size: $titleFontSize;
+
+      .level {
+        padding-right: $smallPadding;
+      }
+    }
+
+    .details {
+      height: $bigPadding;
+      display: flex;
+      align-items: center;
+
+      .icon {
+        padding-right: $smallPadding;
+      }
+    }
+  }
+
+  .options-content {
+    margin-bottom: $bigPadding;
+
+    .radio-group, .checkbox-group {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  .button-content {
+    .button-container {
+      display: flex;
+      gap: $padding;
+    }
   }
 }

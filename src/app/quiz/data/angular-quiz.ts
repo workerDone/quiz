@@ -1,7 +1,7 @@
-import { QuizQuestionLevel } from '../quiz-question-level';
-import { QuizQuestion } from '../quiz-view/quiz-question';
+import { QuizQuestionLevel } from '../quiz-view/quiz-question-level';
+import { QuizQuestionModel } from '../quiz-view/quiz-question.model';
 
-export const angularQuizData: QuizQuestion[] = [
+export const angularQuizData: QuizQuestionModel[] = [
   {
     id: 1,
     question: 'Что такое Angular?',

@@ -1,7 +1,7 @@
-import { QuizQuestionLevel } from '../quiz-question-level';
-import { QuizQuestion } from '../quiz-view/quiz-question';
+import { QuizQuestionLevel } from '../quiz-view/quiz-question-level';
+import { QuizQuestionModel } from '../quiz-view/quiz-question.model';
 
-export const javaScriptQuizData: QuizQuestion[] = [
+export const javaScriptQuizData: QuizQuestionModel[] = [
   {
     id: 1,
     question: 'Какие примитивные типы данных существуют в JavaScript?',
